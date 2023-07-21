@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light" data-footer="dark">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet">
+
+    <style type="text/css">
+        .badge {
+            padding: .25em .75em;
+            border-radius: 1.25rem;
+            font-family: 'Inter', sans-serif;
+            font-size: .9rem;
+        }
+
+        .badge-success {
+            color: #108800;
+            background-color: #bbf7d0;
+        }
+
+        .badge-warning {
+            color: #ca8a04;
+            background-color: #fef08a;
+        }
+
+        .badge-danger {
+            color: #dc2626;
+            background-color: #fecaca;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section
+        style="font-family: 'Poppins', sans-serif; box-sizing: border-box; font-size: 15px; width: 100%; background-color: transparent; margin: 35px 0;color: #06283D;">
+        <div
+            style="max-width: 650px;margin:auto; box-shadow: rgba(135, 138, 153, 0.10) 0 5px 20px -6px;border-radius: 6px;border: 1px solid #eef1f5;overflow: hidden;background-color: #fff;">
+            <table style="width: 100%;" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td style="padding: 25px; vertical-align: top;">
+                        <a href="index-2.html"><img src="https://admin.eurosonlatino.com.mx/assets/images/logo-icon.png"
+                                alt="" height="50"></a>
+                    </td>
+                    <td style="padding: 25px; vertical-align: top;text-align: right;">
+                        <p style="margin-bottom: 0px; font-size: 14px;font-weight: 500;margin-top: 0px;"><span
+                                style="color: #878a99 !important;">Fecha</span><br>
+                            $fechacompra
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+            <div>
+                <table style="width: 100%;border-collapse: collapse;" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+
+                            <img height="auto" src="$imagenEvento"
+                                style="border:0;display:block;outline:none;text-decoration:none;width:100%;"
+                                width="64" />
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+            <div style="padding: 1.5rem;text-align: center;">
+                <h5
+                    style="font-size: 18px;font-family: 'Poppins', sans-serif;font-weight: 600;margin-bottom: 0px;margin-top: 0px;line-height: 1.2;">
+                    Su orden ha sido confirmada!</h5>
+            </div>
+            <div style="padding: .8rem;
+            background-color: #e5bb00;
+            text-align: center;">
+                <h6
+                    style="font-size: 18px;font-family: 'Inter', sans-serif;font-weight: 400;margin-bottom: 0px;margin-top: 0px;line-height: 1.8;">
+                    Invoice ID:
+                    <span style="font-weight: 600;">$invoiceid</span>
+                </h6>
+
+            </div>
+            <div style="padding: 1.5rem;">
+                <table style="width: 100%;" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td style="padding: 5px; vertical-align: top;">
+                            <p
+                                style="color: #878a99 !important; margin-bottom: 12px; font-size: 13px; text-transform: uppercase;font-weight: 500;margin-top: 0px;">
+                                Método de pago</p>
+                            <h6
+                                style="font-size: 15px; margin: 0px;font-weight: 600; font-family: 'Inter', sans-serif;">
+                                $metodoPago</h6>
+                        </td>
+                        <td style="padding: 5px; vertical-align: top;">
+                            <p
+                                style="color: #878a99 !important; margin-bottom: 12px; font-size: 13px; text-transform: uppercase;font-weight: 500;margin-top: 0px;">
+                                Status</p>
+                            $statusOrden
+                        </td>
+                    </tr>
+                </table>
+
+                <table
+                    style="width: 100%;border-collapse: collapse;margin-bottom: 16px;margin-top: 20px;border: 1px solid #ddd;border-collapse: collapse;"
+                    cellspacing="0" cellpadding="0" border="0">
+                    <tr align="left">
+                        <th
+                            style="padding: 12px 5px; vertical-align: top;border: 1px solid #ddd;border-collapse: collapse;">
+                            Item</th>
+                        <th
+                            style="padding: 12px 5px; vertical-align: top;border: 1px solid #ddd;border-collapse: collapse;text-align:center">
+                            Cantidad</th>
+                        <th
+                            style="padding: 12px; vertical-align: top;border: 1px solid #ddd;border-collapse: collapse;text-align:end;">
+                            Precio</th>
+                    </tr>
+
+                    $itemsCompra
+                    <tr>
+                        <td colspan="2"
+                            style="padding: 12px 8px; font-size: 15px;border-top: 1px solid #e9ebec;border: 1px solid #ddd;border-collapse: collapse;">
+                            Subtotal
+                        </td>
+                        <td
+                            style="padding: 12px 8px; font-size: 15px;text-align: end; border-top: 1px solid #e9ebec;border: 1px solid #ddd;border-collapse: collapse;">
+                            <h6
+                                style="font-size: 15px; margin: 0px;font-weight: 600; font-family: 'Poppins', sans-serif;">
+                                $subtotalCarrito</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"
+                            style="padding: 12px 8px; font-size: 15px;border: 1px solid #ddd;border-collapse: collapse;">
+                            Taxs
+                        </td>
+                        <td
+                            style="padding: 12px 8px; font-size: 15px;text-align: end;border: 1px solid #ddd;border-collapse: collapse; ">
+                            <h6
+                                style="font-size: 15px; margin: 0px;font-weight: 600; font-family: 'Poppins', sans-serif;">
+                                $taxCarrito</h6>
+                        </td>
+                    </tr>
+                    <!-- $cupon -->
+                    <tr>
+                        <td colspan="2"
+                            style="padding: 12px 8px; font-size: 15px;border-top: 1px solid #e9ebec;border: 1px solid #ddd;border-collapse: collapse;">
+                            Total
+                        </td>
+                        <td
+                            style="padding: 12px 8px; font-size: 15px;text-align: end; border-top: 1px solid #e9ebec;border: 1px solid #ddd;border-collapse: collapse;">
+                            <h6
+                                style="font-size: 15px; margin: 0px;font-weight: 600; font-family: 'Poppins', sans-serif;">
+                                $totalCarrito</h6>
+                        </td>
+                    </tr>
+                </table>
+                <div>
+                    <table style="width: 100%;border-collapse: collapse;" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td style="text-align: center;">
+
+                                <!-- <img height="auto"
+                                    src="https://i0.wp.com/www.elretodeemprender.com/wp-content/uploads/2013/12/imagen-vectorial.jpg?fit=1600%2C599&ssl=1"
+                                    style="border:0;outline:none;text-decoration:none;text-align: center;"
+                                    width="250" /> -->
+                                <img height="auto"
+                                    src="https://borealtech.com/wp-content/uploads/2018/10/codigo-qr-1024x1024-1.jpg"
+                                    style="border:0;outline:none;text-decoration:none;text-align: center;"
+                                    width="150" />
+                                <p
+                                    style="font-size: 15px; margin: 0px;font-weight: 600; font-family: 'Poppins', sans-serif;">
+                                    $invoiceid
+                                </p>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                </div>
+                <p style="font-size:13px;color: #878a99; margin-bottom: 20px;margin-top: 15px;text-align:center;">
+                    Si tiene alguna duda sobre su recibo escríbanos al correo $correoContactoEvento
+                </p>
+            </div>
+            <div style="padding: 1.5rem;background-color: #fafafa;">
+                <div style="text-align: center;">
+                    <p style="color: #878a99; margin: 0;font-weight: 500;">
+                        © $nombreEvento
+                        <script>document.write(new Date().getFullYear())</script>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

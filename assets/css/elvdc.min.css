@@ -1,0 +1,218 @@
+.btn-primary {
+    color: #fff;
+    background-color: #0f529a;
+    border-color: #0f529a;
+    box-shadow: none;
+}
+
+.bg-dark {
+    background: #00356d !important;
+}
+
+h2.titlevsdc {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.bg-gradient {
+    background: #766df4 !important;
+    background: linear-gradient(to right, #80D0C7 0%, #0093E9 30%) !important;
+}
+
+.card.card-hover:hover,
+.card.card-active {
+    border-color: #ffb15c !important;
+    box-shadow: 0.1875rem 0.1875rem 0.625rem -0.125rem rgba(0, 0, 0, 0.09) !important;
+}
+
+.text-primary {
+    color: #ffb15c !important;
+}
+
+.btn-outline-primary {
+    border-color: #0093E9;
+}
+
+.btn-outline-primary {
+    color: #80D0C7;
+    border-color: #0093E9;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #80D0C7;
+    border-color: #80D0C7;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #80D0C7;
+    border-color: #80D0C7;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #80D0C7;
+    border-color: #80D0C7;
+}
+
+.bg-header-es {
+    background-color: #421414;
+    background-image: url("../img/background/hero-bg_mobile.jpg");
+}
+
+.bg-header-en {
+    background-color: #421414;
+    background-image: url("../img/background/hero-bg_mobile.jpg");
+}
+
+.promo {
+    padding-top: 80px;
+}
+
+@media only screen and (min-width: 768px) {
+
+    /* For desktop: */
+    .bg-header-es {
+        background-color: #421414;
+        background-image: url("../img/background/hero-bg_es.jpg");
+    }
+
+    .bg-header-en {
+        background-color: #421414;
+        background-image: url("../img/background/hero-bg_en.jpg");
+    }
+}
+
+@media only screen and (min-width: 600px) {
+
+    /* For tablet: */
+    .bg-header-es {
+        background-color: #421414;
+        background-image: url("../img/background/hero-bg_es.jpg");
+    }
+
+    .bg-header-en {
+        background-color: #421414;
+        background-image: url("../img/background/hero-bg_en.jpg");
+    }
+
+    .promo {
+        padding-left: 6rem !important;
+        padding-right: 6rem !important;
+        padding-top: 1.5rem !important;
+    }
+}
+
+.cs-page-loading {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all .4s .2s ease-in-out;
+    transition: all .4s .2s ease-in-out;
+    background-color: #fff;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9999;
+}
+
+.cs-page-loading-pago {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all .4s .2s ease-in-out;
+    transition: all .4s .2s ease-in-out;
+    background-color: #fff;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9999;
+}
+
+.cs-page-loading.active {
+    opacity: 0.9;
+    visibility: visible;
+}
+
+.cs-page-loading-inner {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: opacity .2s ease-in-out;
+    transition: opacity .2s ease-in-out;
+    opacity: 0;
+}
+
+.cs-page-loading.active>.cs-page-loading-inner {
+    opacity: 1;
+    /*  */
+}
+
+.cs-page-loading-inner>span {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #737491;
+}
+
+.cs-page-spinner {
+    display: inline-block;
+    width: 5.75rem;
+    height: 2.75rem;
+    /* margin-bottom: .75rem;
+      vertical-align: text-bottom;
+      border: .15em solid #ffa200;
+      border-right-color: transparent;
+      border-radius: 50%;
+      -webkit-animation: spinner .75s linear infinite;
+      animation: spinner .75s linear infinite; */
+}
+
+@-webkit-keyframes spinner {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinner {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+
+/* Dropzone CSS */
+
+.dropzone {
+    border: 2px dashed #dee2e6;
+    background: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+    min-height: 150px;
+    padding: 20px;
+}
+
+.dropzone .dz-message {
+    text-align: center;
+    margin: 2rem 0
+}
+
+.dropzone.dz-started .dz-message {
+    display: none
+}
+
