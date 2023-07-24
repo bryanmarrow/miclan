@@ -2,8 +2,8 @@
 
 
 define('HOST', 'localhost');
-define('DB', 'eurosonl_elwsc_v2_login');
-// define('DB', 'eurosonl_elwscpruebas');
+// define('DB', 'eurosonl_elwsc_v2_login');
+define('DB', 'eurosonl_elwsc2023_pruebas');
 define ('USER','eurosonl_btech');
 define('PASSWORD', 'K%M$dqbV5z8q');
 define('CHARSET', 'utf8mb4');
@@ -209,6 +209,16 @@ function infoEvento($idevento){
     $queryGetInfoEvento->execute();
     
     return $queryGetInfoEvento->fetch(PDO::FETCH_ASSOC);
+}
+
+function getDataEvento($tagEvento){
+    global $basededatos;
+    $queryEvento="CALL proc_get_data_evento('".$tagEvento."')";
+    $queryEventoExe=$basededatos->connect()->prepare($queryEvento);
+    $queryEventoExe->execute();
+    $dataEvento=$queryEventoExe->fetch();
+
+    return $dataEvento;
 }
 
 
@@ -999,6 +1009,120 @@ function globalStatusWeb(){
     return $queryExe->fetch()['status'];
 }
 
+function get_fetchalldata_procedure_store($name_procedure_stored, $params){
+    global $basededatos;
+    
+    $params=count($params)>0 ? "'".implode("','",$params)."'" : '';
+    try{
+        $queryProcedimiento="CALL $name_procedure_stored($params)";                
+
+        $sql = $basededatos->connect()->prepare($queryProcedimiento);        
+        $sql->execute();         
+        
+        $dataSuccessResponse=$sql->fetchAll(PDO::FETCH_ASSOC);
+
+        $datarespuesta=array(
+            'respuesta' => 'success',                    
+            'data' => $dataSuccessResponse,
+            'num_resultados' => $sql->rowCount()
+        );
+
+    }catch(PDOException $e){
+        $datarespuesta=array(
+            'respuesta' => 'error',
+            'mensaje' => 'Error al obtener data',
+            'log_error' => $e->getMessage()
+        );
+    }
+    return $datarespuesta;        
+}
+
+function get_fetchdata_procedure_store($name_procedure_stored, $params){
+    global $basededatos;
+    
+    $params=count($params)>0 ? "'".implode("','",$params)."'" : '';
+    try{
+        $queryProcedimiento="CALL $name_procedure_stored($params)";                
+
+        $sql = $basededatos->connect()->prepare($queryProcedimiento);        
+        $sql->execute();         
+        
+        $dataSuccessResponse=$sql->fetch(PDO::FETCH_ASSOC);
+
+        $datarespuesta=array(
+            'respuesta' => 'success',                    
+            'data' => $dataSuccessResponse,
+            'num_resultados' => $sql->rowCount()
+        );
+
+    }catch(PDOException $e){
+        $datarespuesta=array(
+            'respuesta' => 'error',
+            'mensaje' => 'Error al obtener data',
+            'log_error' => $e->getMessage()
+        );
+    }
+    return $datarespuesta;        
+}
+
+
+function postdata_procedure_store($name_procedure_stored, $params){
+    global $basededatos;
+
+    $params=count($params)>0 ? "'".implode("','",$params)."'" : '';
+    try{
+        $queryProcedimiento="CALL $name_procedure_stored($params)";        
+
+        $sql = $basededatos->connect()->prepare($queryProcedimiento);        
+        $sql->execute();         
+        
+        $dataSuccessResponse=$sql->fetch(PDO::FETCH_ASSOC);
+
+        $datarespuesta=array(
+            'respuesta' => 'success',                    
+            'data' => $dataSuccessResponse,
+            'num_resultados' => $sql->rowCount()
+        );
+
+    }catch(PDOException $e){
+        $datarespuesta=array(
+            'respuesta' => 'error',
+            'mensaje' => 'Error al obtener data',
+            'log_error' => $e->getMessage()
+        );
+    }
+    return $datarespuesta;        
+}
+
+function validar_permisos_edicion($id_admin, $token_edicion){
+
+    global $basededatos;       
+
+    if(!isset($token_edicion)){
+        $respuesta=array(
+            'num_results'=> 0,                
+        );
+    }else{
+        try{
+            $querypermisos="CALL proc_permisos_edicion_admin('".$id_admin."', '".$token_edicion."')";            
+
+            $validarPermisos=$basededatos->connect()->prepare($querypermisos);
+            $validarPermisos->execute();
+
+            $respuesta=array(                
+                'num_results'=> $validarPermisos->rowCount(),
+            );
+        }catch(PDOException $e){
+            $respuesta=array(
+                'num_results'=> $validarPermisos->rowCount(),
+                'mensaje' => $e->getMessage()
+            );
+        }
+    }    
+    return $respuesta;
+
+
+}
 
 
 ?>

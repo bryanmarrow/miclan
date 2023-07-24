@@ -216,3 +216,14 @@ h2.titlevsdc {
     display: none
 }
 
+.modal-fullscreen {
+    width: 100vw;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+}
+
+.modal-content{
+    border-radius: 0;
+    height: 100%;
+}

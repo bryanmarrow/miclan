@@ -242,34 +242,15 @@ require $rootPath.'/api/sesionWeb.php';
           </div>          
         </div>        
       </div>
-      <div class="navbar navbar-expand-lg navbar-light bg-light navbar-box-shadow navbar-sticky" data-scroll-header="">
-        <!-- <div class="navbar-search bg-light">
-            <div class="container d-flex flex-nowrap align-items-center"><i class="fe-search font-size-xl"></i>
-              <input class="form-control form-control-xl navbar-search-field" type="text" placeholder="Search site">
-              <div class="d-none d-sm-block flex-shrink-0 pl-2 mr-4 border-left border-right" style="width: 10rem;">
-                <select class="form-control custom-select pl-2 pr-0">
-                  <option value="all">All categories</option>
-                  <option value="clothing">Clothing</option>
-                  <option value="shoes">Shoes</option>
-                  <option value="electronics">Electronics</option>
-                  <option value="accessoriies">Accessories</option>
-                  <option value="software">Software</option>
-                  <option value="automotive">Automotive</option>
-                </select>
-              </div>
-              <div class="d-flex align-items-center"><span class="text-muted font-size-xs mt-1 d-none d-sm-inline">Close</span>
-                <button class="close p-2" type="button" data-toggle="search">&times;</button>
-              </div>
-            </div>
-          </div> -->
+      <div class="navbar navbar-expand-lg navbar-light bg-light navbar-box-shadow navbar-sticky" data-scroll-header="">        
         <div class="container px-0 px-xl-3">
           <button class="navbar-toggler ml-n2 mr-2" type="button" data-toggle="offcanvas"
             data-offcanvas-id="primaryMenu"><span class="navbar-toggler-icon"></span></button><a
             class="navbar-brand order-lg-1 mx-auto ml-lg-0 pr-lg-2 mr-lg-4" href="<?= $rootPath ?>"><img
               class="navbar-floating-logo d-none d-lg-block" width="50"
               src="<?= $rootPath ?>assets\img\logo\logo-icon.png" alt="Around"><img class="navbar-stuck-logo"
-              width="153" src="<?= $rootPath ?>assets\img\logo\logo-dark.png" alt="Around"><img class="d-lg-none"
-              width="150" src="<?= $rootPath ?>assets\img\logo\logo-dark.png" alt="Around"></a>
+              width="50" src="<?= $rootPath ?>assets\img\logo\logo-icon.png" alt="Around"><img class="d-lg-none"
+              width="50" src="<?= $rootPath ?>assets\img\logo\logo-icon.png" alt="Around"></a>
               <div class="d-flex align-items-center order-lg-3 ml-lg-auto">
                 <div class="navbar-tool mr-1 mx-3">
                   <a class="navbar-tool-icon-box" href="#" data-toggle="offcanvas" data-offcanvas-id="shoppingCart">
@@ -279,7 +260,8 @@ require $rootPath.'/api/sesionWeb.php';
                 </div>
                 <?php if(!isset($_SESSION['status'])){ ?>
                   <a class="nav-link-style font-size-sm text-nowrap" href="login" >
-                      <i class="fe-user font-size-xl mr-2"></i>Iniciar sesión
+                      <i class="fe-user font-size-xl mr-2"></i>
+                      
                   </a>
                 <?php }else{ 
                       $idUserSession=$_SESSION['idUserSession'];

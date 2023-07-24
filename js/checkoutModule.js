@@ -1008,3 +1008,91 @@ saveCarritoCloud(shoppingCart.listCart())
 Fancybox.bind("[data-fancybox]", {
     // Your custom options
 });
+
+
+$('#addtickets_event').click(async function(){
+    
+    tag_evento=urlParams.get('tag_evento');   
+    params_controller={
+        'action':'get_tickets_evento',
+        'variables': {
+            'tag_evento':tag_evento
+        }
+    };
+
+    let {data} = await getDataController('event_controller', 'proc_get_tickets_evento', params_controller);
+    $('#tickets_view_event').empty();
+    data.forEach(element => {
+        console.log(element)
+        divPase=`<div class="col-lg-12 pb-4">
+        <div class="bg-light box-shadow-lg rounded-lg ">
+          <div class="pt-3 px-3 itemCart">
+            <div class="d-md-flex align-items-start border-bottom py-2 py-sm-2">
+              <div class="ml-4 ml-sm-0 py-2 w-100" style="max-width: 25rem;">
+                <h5 class="mb-2">${ element.descripcion_pase }</h3>
+                <div class="font-size-xs" style="max-width: 10rem;">${ element.tag }</div>
+              </div>
+              <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 25rem;">
+                <span class="h5 font-weight-normal text-muted mb-1 mr-2">$</span>
+                <span class="h5 font-weight-normal text-primary mb-1 mr-2" data-current-price="0" data-new-price="0">${ element.precio }</span>
+                <span class="h5 font-weight-normal text-muted mb-1 mr-2">${ element.divisa }</span>
+              </div>
+            
+              <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 15rem;">                              
+                  <input class="form-control text-center product-qty mb-2" type="number" value="${ element.minPases }" min="${ element.minPases }" max="${ element.maxPases }" >
+              </div>
+              <div class="d-flex w-100 align-items-end py-1 py-sm-2 px-3" style="max-width: 13rem;">
+                
+                <button class="btn btn-primary btn-sm btn-block btnaddPase" type="button" 
+                    data-codigopase="${ element.codigo_pase }" 
+                    data-nompase="${ element.descripcion_pase }"
+                    data-precioPase="${ element.precio }"
+                    data-divisapase="${ element.divisa }"
+                    data-tipopase="${ element.tipo_pase }"
+                >
+                    Agregar al carrito
+                </button>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+      </div>`;
+      $('#tickets_view_event').append(divPase);
+        
+    });    
+    
+
+    $('#modal_tickets_event').modal('show');
+})
+
+
+async function getDataController(name_controller, name_stored_procedure, params_controller){
+
+    let data_controller;
+    await $.ajax({
+        url:'controllers/'+name_controller,
+        data: { name_stored_procedure, params_controller },
+        type: 'POST'
+    }).done(datacontroller => {
+        data_controller = datacontroller;
+    })
+
+    return data_controller;
+}
+
+async function getDataFormController(name_controller, name_stored_procedure, params_controller){
+
+    let data_controller;
+    await $.ajax({
+        url:'controllers/'+name_controller,
+        data: params_controller,
+        type: 'POST',
+        processData: false,
+        contentType: false,
+    }).done(datacontroller => {
+        data_controller = datacontroller;
+    })
+
+    return data_controller;
+}
