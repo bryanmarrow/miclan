@@ -7,7 +7,7 @@
 
 ?>
 <!-- Modal markup -->
-<div class="modal fade" tabindex="-1" role="dialog" id="modal_tickets_event" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade show-carrito" tabindex="-1" role="dialog" id="modal_tickets_event" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-fullscreen" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -20,6 +20,27 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row justify-content-center" id="tickets_view_event">
+                    </div>
+                </div>
+                <div class="col-lg-4 ">
+                    <div class="row">
+                        <div class="col-lg-12 carritoItems">
+
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="cs-offcanvas-cap d-block border-top px-4 mb-2 pt-3">
+                                <a class="btn btn-dark btn-sm btn-block mb-4 clear-cart" >
+                                    <i class="fe-trash font-size-base mr-2"></i>Borrar carrito
+                                </a>
+                                <div class="d-flex justify-content-between mb-4">
+                                    <span>Total:</span>
+                                    <span class="h6 mb-0 total-cart">$ 0.00</span>
+                                </div>
+                                <a class="btn btn-primary btn-sm btn-block" href="checkout">
+                                    <i class="fe-credit-card font-size-base mr-2"></i>Checkout
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

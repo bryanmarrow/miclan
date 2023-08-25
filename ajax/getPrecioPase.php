@@ -11,7 +11,7 @@
 
     $query="SELECT * FROM tbl_pases a
     INNER JOIN tbl_eventos b ON a.evento = b.id
-    where a.codigo_pase='$sku' and b.token='$tokenEvento'";
+    where a.codigo_pase='$sku'";
     $queryPase=$basededatos->connect()->prepare($query);
     $queryPase->execute();
 

@@ -464,7 +464,8 @@ var shoppingCart = (function () {
 })();
 
 
-$('.btnaddPase').on('click', function (e) {
+$(document).on('click', '.btnaddPase',function (e) {
+    console.log('entro')
 
     var idform = $(this).data('codigopase');
     var nomPase = $(this).data('nompase');
@@ -491,11 +492,17 @@ $('.btnaddPase').on('click', function (e) {
 
 $('.show-carrito').on("click", ".delete-item", function (event) {
 
+    preloaderActive();
     var name = $(this).data('codpase');
     var tipoPase = $(this).data('tipopase');
 
+   
     shoppingCart.removeItemFromCartAll(name, tipoPase);
-    displayCart();
+    setTimeout(function () {
+        displayCart();
+        preloaderRemove();
+    }, 500)
+   
 
 })
 
@@ -1012,6 +1019,18 @@ Fancybox.bind("[data-fancybox]", {
 
 $('#addtickets_event').click(async function(){
     
+    let carritoStorage=JSON.parse(localStorage.getItem("carritoelwsc"));
+    // console.log(carritoStorage);
+
+    if(carritoStorage){
+        if(carritoStorage.length>0){
+            shoppingCart.clearCart();
+            displayCart();
+        }
+    }
+    
+
+
     tag_evento=urlParams.get('tag_evento');   
     params_controller={
         'action':'get_tickets_evento',
