@@ -127,7 +127,8 @@ async function handleSubmit(e) {
         paymentMethod
       }
     }).done(data => {
-      if (data.respuesta == 'success') {
+      // console.log(data)
+      // if (data.respuesta == 'success') {
         switch (data.metodoPago) {
           case 'transfer':
 
@@ -186,100 +187,96 @@ async function handleSubmit(e) {
             })
             break;
           case 'credit-card':
+            
+          
+            metodoPago=data.metodoPago
+
             carrito = data.carrito;
 
             stripe.confirmCardPayment(data.clientSecret, {
                 payment_method: data.idMetodoPago
               })
               .then(data => {
-
-
-
                 if (data.error) {
-
                   error = data.error
-
                   paymentIntent = error.payment_intent
-
-
-
                   showMessage(error.message)
-
                 }
                 if (data.paymentIntent) {
-                  guardarPago(data.paymentIntent, carrito, pases);
+                  guardarPago(data.paymentIntent, carrito, pases, metodoPago);
                 }
 
               })
             break;
         }
-      } else if (data['respuesta'] == 'error') {
-
-        alert('Error al agregar la orden');
-        console.log(data)
-
-      }
-
-
-      // }
-
-      // if (data['respuesta'] == 'error') {
+      // } else if (data['respuesta'] == 'error') {
 
       //   alert('Error al agregar la orden');
       //   console.log(data)
 
-      // } else {
-
-
-      //   carrito = data.carrito;
-
-      //   stripe.confirmCardPayment(data.clientSecret, {
-      //       payment_method: data.idMetodoPago
-      //     })
-      //     .then(data => {
-
-
-
-      //       if (data.error) {
-
-      //         error = data.error
-
-      //         paymentIntent = error.payment_intent
-
-
-
-      //         showMessage(error.message)
-
-      //       }
-      //       if (data.paymentIntent) {
-      //         guardarPago(data.paymentIntent, carrito, pases);
-      //       }
-
-      //     })
       // }
 
 
+    });
 
-      //   stripe.confirmOxxoPayment(
-      //     data.clientSecret,
-      //     {
-      //       payment_method: {
-      //         billing_details: {
-      //           name: 'Bryan Martinez',
-      //           email: 'bryan.martinez.romero@gmailc.om',
-      //         },
-      //       },
-      //     }) // Stripe.js will open a modal to display the OXXO voucher to your customer
-      //     .then(function(result) {
-      //       console.log(result)
-      //       // This promise resolves when the customer closes the modal
-      //       if (result.error) {
-      //         // Display error to your customer
-      //         var errorMsg = document.getElementById('error-message');
-      //         errorMsg.innerText = result.error.message;
-      //       }
-      // });
-    })
+
+    //   if (data['respuesta'] == 'error') {
+
+    //     alert('Error al agregar la orden');
+    //     console.log(data)
+
+    //   } else {
+
+
+    //     carrito = data.carrito;
+
+    //     stripe.confirmCardPayment(data.clientSecret, {
+    //         payment_method: data.idMetodoPago
+    //       })
+    //       .then(data => {
+
+
+
+    //         if (data.error) {
+
+    //           error = data.error
+
+    //           paymentIntent = error.payment_intent
+
+
+
+    //           showMessage(error.message)
+
+    //         }
+    //         if (data.paymentIntent) {
+    //           guardarPago(data.paymentIntent, carrito, pases);
+    //         }
+
+    //       })
+    //   }
+
+
+
+    //     stripe.confirmOxxoPayment(
+    //       data.clientSecret,
+    //       {
+    //         payment_method: {
+    //           billing_details: {
+    //             name: 'Bryan Martinez',
+    //             email: 'bryan.martinez.romero@gmailc.om',
+    //           },
+    //         },
+    //       }) // Stripe.js will open a modal to display the OXXO voucher to your customer
+    //       .then(function(result) {
+    //         console.log(result)
+    //         This promise resolves when the customer closes the modal
+    //         if (result.error) {
+    //           Display error to your customer
+    //           var errorMsg = document.getElementById('error-message');
+    //           errorMsg.innerText = result.error.message;
+    //         }
+    //   });
+    // })
     // }
     // if (paymentIntent) {
     //   clientSecret = paymentIntent.client_secret
@@ -345,12 +342,12 @@ function setCollapse(collapsing) {
 }
 
 
-function guardarPago(infoPago, carrito, infoOrdenPases) {
+function guardarPago(infoPago, carrito, infoOrdenPases, metodoPago) {
 
 
   console.log(infoPago)
   console.log(carrito)
-
+  console.log(metodoPago)
 
   ordenPago = {}
   ordenPago['invoiceid'] = infoPago.description;
@@ -360,7 +357,8 @@ function guardarPago(infoPago, carrito, infoOrdenPases) {
   ordenPago['monto'] = infoPago.amount;
   ordenPago['currency'] = infoPago.currency
   ordenPago['carrito'] = carrito
-  // console.log(ordenPago)
+  ordenPago['metodopago']=metodoPago
+  console.log(ordenPago)
 
 
   $.ajax({
@@ -376,7 +374,8 @@ function guardarPago(infoPago, carrito, infoOrdenPases) {
         data: {
           invoice_id: infoPago.description,
           pases: carrito,
-          infoOrdenPases
+          infoOrdenPases,
+          metodopago: metodoPago
         }
       }).done(data => {
         switch (data.respuesta) {

@@ -1,5 +1,184 @@
+<?php
 
-<div class="container-fluid divCarrito">
+
+// Set Language variable
+if(isset($_GET['lang']) && !empty($_GET['lang'])){
+  $_SESSION['lang'] = $_GET['lang'];
+ 
+  if(isset($_SESSION['lang']) && $_SESSION['lang'] != $_GET['lang']){
+   echo "<script type='text/javascript'> location.reload(); </script>";
+  }
+}
+// Include Language file
+if(isset($_SESSION['lang'])){
+  $url=$rootPath."lang_".$_SESSION['lang'].".php";
+  include $url;
+}else{
+  $url=$rootPath."lang_es.php";
+  include $url;
+}
+
+require $rootPath.'/api/sesionWeb.php';
+
+
+
+?>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title><?php echo htmlspecialchars($title); ?>
+  </title>
+  <!-- SEO Meta Tags-->
+  <meta name="description" content="<?php echo htmlspecialchars($description); ?>">
+  <meta name="keywords" content="<?php echo htmlspecialchars($keywords); ?>">
+  <meta name="author" content="<?php echo htmlspecialchars($author); ?>">
+  <!-- Viewport-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Favicon and Touch Icons-->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.bin"> -->
+  <!-- <link rel="mask-icon" color="#5bbad5" href="safari-pinned-tab.svg"> -->
+  <!-- <meta name="msapplication-TileColor" content="#766df4"> -->
+  <!-- <meta name="theme-color" content="#ffffff"> -->
+  <!-- Facebook tags -->
+  <meta property="og:title" content="<?php echo htmlspecialchars($ogtitle); ?>" />
+  <meta property="og:description" content="<?php echo htmlspecialchars($ogdescription); ?>">
+  <meta property="og:image" content="<?php echo htmlspecialchars($ogimagen); ?>">
+  <?php require 'templates/headers_cache.php'; ?>
+ 
+  <link rel="stylesheet" media="screen" href="<?= $rootPath ?>assets\vendor\simplebar\dist\simplebar.min.css">
+  <!-- Main Theme Styles + Bootstrap-->
+  <link rel="stylesheet" media="screen" href="<?= $rootPath ?>assets\css\app.min.css">
+  <link rel="stylesheet" media="screen" href="<?= $rootPath ?>assets\css\theme.min.css">  
+  <link rel="stylesheet" media="screen" href="<?= $rootPath ?>assets\css\elvdc.min.css">
+  <link rel="stylesheet" media="screen" href="<?= $rootPath ?>assets\css\icons.min.css">
+  <link rel="stylesheet" media="screen" href="<?= $rootPath ?>assets\css\loginModule.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+
+  
+  
+  <?php require 'templates/links-scripts.header.php'; ?>
+
+</head>
+<!-- Body-->
+
+<body>
+    <div class="cs-page-loading ">
+        <div class="cs-page-loading-inner">
+        <div class="cs-page-spinner">
+
+            <span class="spinner-grow spinner-grow-sm mr-2 mb-4" style="width: 3rem; height: 3rem;" role="status"
+            aria-hidden="true"></span>
+            <span id="textoload"> </span>
+        </div>
+        </div>
+
+    </div>
+    <header class="cs-header">
+      <div class="topbar topbar-dark bg-dark">
+        <div class="container d-md-flex align-items-center px-0 px-xl-3">
+          <div class="d-none d-md-block text-nowrap mr-3"><i class="fe-phone font-size-base text-muted mr-1"></i>
+              <span class="text-muted mr-2 ">
+              <a class="topbar-link" target="_blank" href="<?= $contactoWhatsapp['value'] ?>">
+                <?= index_contactoviawhatsapp ?>
+              </a>
+              
+          </div>
+          <div class="d-flex text-md-right ml-md-auto">
+            <!-- <a class="topbar-link pr-2 mr-4" href="order-tracking.html"><i class="fe-map-pin font-size-base opacity-60 mr-1"></i>Track <span class='d-none d-sm-inline'>your order</span></a> -->
+            
+            <span class="mx-2 text-light"><?= index_dollar_hoy?>: $<?= $tipoCambioDollar['value'] ?> MXN</span>        
+            <form method='get' action='' id='form_lang'>
+              Language : <select name='lang' onchange='changeLang();'>
+                <option value='es'
+                  <?php if(isset($_SESSION['lang']) && $_SESSION['lang'] == 'es'){ echo "selected"; } ?>>Español
+                </option>
+                <option value='en'
+                  <?php if(isset($_SESSION['lang']) && $_SESSION['lang'] == 'en'){ echo "selected"; } ?>>English
+                </option>
+              </select>
+            </form>
+            <!-- <div class="dropdown"><a class="topbar-link dropdown-toggle" href="#" data-toggle="dropdown">$ Dollar (US)</a>
+                <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">€ Euro (EU)</a><a class="dropdown-item" href="#">£ Pound (UK)</a><a class="dropdown-item" href="#">¥ Yen (JP)</a></div>
+              </div> -->
+            
+          </div>          
+        </div>        
+      </div>
+      <div class="navbar navbar-expand-lg navbar-light bg-light navbar-box-shadow navbar-sticky" data-scroll-header="">        
+        <div class="container px-0 px-xl-3">
+          <button class="navbar-toggler ml-n2 mr-2" type="button" data-toggle="offcanvas"
+            data-offcanvas-id="primaryMenu"><span class="navbar-toggler-icon"></span></button><a
+            class="navbar-brand order-lg-1 mx-auto ml-lg-0 pr-lg-2 mr-lg-4" href="<?= $rootPath ?>"><img
+              class="navbar-floating-logo d-none d-lg-block" width="50"
+              src="<?= $rootPath ?>assets\img\logo\logo-icon.png" alt="Around"><img class="navbar-stuck-logo"
+              width="50" src="<?= $rootPath ?>assets\img\logo\logo-icon.png" alt="Around"><img class="d-lg-none"
+              width="50" src="<?= $rootPath ?>assets\img\logo\logo-icon.png" alt="Around"></a>
+              <div class="d-flex align-items-center order-lg-3 ml-lg-auto">
+                <div class="navbar-tool mr-1 mx-3">
+                  <a class="navbar-tool-icon-box" href="#" data-toggle="offcanvas" data-offcanvas-id="shoppingCart">
+                    <i class="fe-shopping-cart"></i>
+                    <span class="navbar-tool-badge total-count"></span>
+                  </a>
+                </div>
+                <?php if(!isset($_SESSION['status'])){ ?>
+                  <a class="nav-link-style font-size-sm text-nowrap" href="login" >
+                      <i class="fe-user font-size-xl mr-2"></i>
+                      
+                  </a>
+                <?php }else{ 
+                      $idUserSession=$_SESSION['idUserSession'];
+                      $query="SELECT * FROM tbl_users where id='$idUserSession'";
+                      $querySessionUser=$basededatos->connect()->prepare($query);
+                      $querySessionUser->execute();
+                      $colUser=$querySessionUser->fetch(PDO::FETCH_ASSOC);
+                  
+                ?>
+
+                  
+                  <div class="navbar-tool dropdown">
+                      <a class="navbar-tool-icon-box" href="my-account">
+                        
+                      <img class="navbar-tool-icon-box-img" src="<?= $imgUser ?>" 
+                        alt="<?= $colUser['fname'] ?>">
+                      </a>
+                      <a class="navbar-tool-label dropdown-toggle" href="my-account">
+                        <small>Hola,</small><?= $colUser['fname'] ?>
+                      </a>
+                    <ul class="dropdown-menu dropdown-menu-right" style="width: 15rem;">                    
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center" href="edit-account">
+                          <i class="fe-user font-size-base opacity-60 mr-2"></i>
+                          Editar cuenta
+                        </a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item d-flex align-items-center logout" href="#">
+                          <i class="fe-log-out font-size-base opacity-60 mr-2"></i>
+                          Cerrar sesión
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                <?php }?>
+              <a class="btn btn-primary btn-sm ml-grid-gutter d-none d-lg-inline-block" href="javascript:history.go(-1)" rel="noopener">
+                <i class="fe-skip-back mr-2"></i>
+                <span class='d-none d-lg-inline'>Regresar a website</span>
+              </a>
+          </div>
+         
+          
+        </div>
+        
+      </div>
+      
+    </header>
+    <div class="container-fluid divCarrito">
         <form class="cs-sidebar-enabled cs-sidebar-right formOrdenPases"
         action="/" method="post" id="my-awesome-dropzone" data-plugin="dropzone" data-previews-container="#file-previews"
             data-upload-preview-template="#uploadPreviewTemplate" 

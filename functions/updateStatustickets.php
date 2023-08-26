@@ -18,7 +18,7 @@
     date_default_timezone_set('America/Mexico_City');
     $fechapago = date("Y-m-d H:i:s");
 
-    $paymenthMethod=$_POST['metodoPago'];
+    $paymenthMethod=isset($_POST['metodopago']) ? $_POST['metodopago'] : '';
 
     
     
@@ -145,7 +145,7 @@
             $statusOrden='<span class="badge badge-danger">Pendiente</span>';            
             $metodoPago='Transferencia bancaria/Depósito';
         break;
-        case 'credit-card':
+        case 'credit-card':            
             foreach ($infoOrden as $row) {
 
                 $dataLog = [

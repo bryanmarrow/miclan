@@ -9,9 +9,9 @@
 
     $infoCarrito=$_POST['carrito'];
     $cupon=isset($_SESSION['cupon']) ? $_SESSION['cupon']['cupon'] : '';
+    $metodo_pago=isset($_SESSION['metodopago']) ? $_SESSION['metodopago'] : 0;
     
-    
-    $infoOrdenPases=calcularPrecio($infoCarrito);
+    $infoOrdenPases=calcularPrecio($infoCarrito, $metodo_pago);
     
     $subtotalcarrito= number_format(($infoOrdenPases['subTotalCarrito']), 2, '.', '');
     $taxcarrito= number_format(($infoOrdenPases['tax']), 2, '.', '');

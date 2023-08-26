@@ -12,15 +12,8 @@ $ogdescription = isset($_GET['ogdescription'])? $_GET['ogdescription'] : "Diciem
 $ogimagen = isset($_GET['ogimagen'])? $_GET['ogimagen'] : "https://eurosonlatino.com.mx/mail/og-image-elwsc2021.jpg";
 
 $rootPath = "./";
-// $evento='elwsc2022';
-// $form = "fullpass";
 
-
-
-
-// require($rootPath."api/Config/Config.php");
 require($rootPath."api/Config/DBconfig.php");
-require($rootPath."templates/header.php");
 require($rootPath."pages/checkout.inc.php");
 require($rootPath."templates/footer.php");
 

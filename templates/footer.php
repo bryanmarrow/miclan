@@ -119,7 +119,7 @@
     <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
     <script src="<?= $rootPath ?>assets/js/dist/js/lightgallery-all.min.js"></script>
     <script src="<?= $rootPath ?>assets/js/lib/jquery.mousewheel.min.js"></script>
-    <script src='//fw-cdn.com/7104283/3248583.js' chat='true'></script>
+    <!-- <script src='//fw-cdn.com/7104283/3248583.js' chat='true'></script> -->
 
     <?php 
       require($rootPath."templates/linkspay.php");
