@@ -1,10 +1,13 @@
 <?php
 
+    // var_dump($_POST);
     
     require('../api/Config/DBconfig.php');
 
+    $tokenEvento=isset($_POST['tokenevento']) ? $_POST['tokenevento'] : '';
+
     try{
-        $query="SELECT * FROM tbl_eventos where token='$tokenEvento'";
+        $query="SELECT * FROM tbl_eventos where tag='$tokenEvento'";
         $queryExe=$basededatos->connect()->prepare($query);
         $queryExe->execute();
 

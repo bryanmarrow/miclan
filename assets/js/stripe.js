@@ -367,7 +367,8 @@ function guardarPago(infoPago, carrito, infoOrdenPases, metodoPago) {
     data: ordenPago,
   }).done(data => {
     if (data.respuesta == 'success') {
-
+      tag_evento=urlParams.get('tag_evento');
+      
       $.ajax({
         type: 'POST',
         url: './functions/updateStatustickets.php',
@@ -375,7 +376,8 @@ function guardarPago(infoPago, carrito, infoOrdenPases, metodoPago) {
           invoice_id: infoPago.description,
           pases: carrito,
           infoOrdenPases,
-          metodopago: metodoPago
+          metodopago: metodoPago,
+          tag_evento: tag_evento
         }
       }).done(data => {
         switch (data.respuesta) {

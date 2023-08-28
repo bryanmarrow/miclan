@@ -6,6 +6,8 @@ function randomString(length, chars) {
     return result;
 }
 
+var queryString = window.location.search;
+var urlParams = new URLSearchParams(queryString);
 
 var shoppingCart = (function () {
 
@@ -631,16 +633,17 @@ async function displayCart() {
     $('.total-count').html(shoppingCart.totalCount());
     const divPaymentMethods = document.getElementById('payment-methods');
 
-
-
+    tag_evento=urlParams.get('tag_evento');   
     await $.ajax({
         url: 'ajax/getDataEvento',
-        type: 'POST'
+        type: 'POST',
+        data: { tokenevento: tag_evento }
     }).done(({
         respuesta,
         data
     }) => {
-
+        console.log(data)
+        
         switch (respuesta) {
             case 'success':
                 invoiceID = data['tag'] + rString;
@@ -1040,6 +1043,10 @@ $('#addtickets_event').click(async function(){
     };
 
     let {data} = await getDataController('event_controller', 'proc_get_tickets_evento', params_controller);
+    console.log(tag_evento)
+    
+    $('#btnmodal_checkout').attr('href', 'checkout?tag_evento='+tag_evento);
+
     $('#tickets_view_event').empty();
     data.forEach(element => {
         console.log(element)
