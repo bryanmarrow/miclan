@@ -71,7 +71,7 @@
                                 data-nompase="<?= $descPase ?>"
                                 data-precioPase="<?= $precioPase ?>"
                                 data-divisapase="<?= $divisaPase ?>"
-                                data-tipopase="<?= $tipoPase ?>"
+                                data-tipopase="<?= $tipoPase ?>"                                
                             >
                                 Agregar al carrito
                             </button>

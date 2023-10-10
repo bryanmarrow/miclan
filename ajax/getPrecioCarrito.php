@@ -46,29 +46,13 @@
     $subtotal=array_sum($montosubtotal);
     $descuentos=array_sum($montoDescuento);
     
-    
-    // $comisionplataformausd=3.00;    
-
-    
-    // $comisionstripe=($subtotal-$descuentos)*0.07;
-    // // echo $comisionstripe.'<br>';
-    // $iva=$comisionstripe*0.16;    
-    // // echo $iva.'<br>';
-    // $comision=isset($_POST['paymenthMethod']) ? 0 : $comisionstripe+$iva+$comisionplataformausd;
-    // // echo $comision.'<br>';
-
-    // $comisionUSD=isset($_POST['paymenthMethod']) ? 0 : $comision;
-    // // echo $comisionUSD;
-    
-    
     $total=$subtotal;
 
     $totalCarrito= [
         'tax' => 0,
         'subTotalCarrito' => $subtotal,
         'descuento' => $descuentos,
-        'total_amount' => $total,               
-        'tax_mxn' => $comision,        
+        'total_amount' => $total,                       
         'cupon' => $cupon
     ];
 
