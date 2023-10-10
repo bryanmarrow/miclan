@@ -36,7 +36,7 @@
                                     <span>Total:</span>
                                     <span class="h6 mb-0 total-cart">$ 0.00</span>
                                 </div>
-                                <a class="btn btn-primary btn-sm btn-block" href="checkout">
+                                <a class="btn btn-primary btn-sm btn-block" id="btnmodal_checkout" href="#">
                                     <i class="fe-credit-card font-size-base mr-2"></i>Checkout
                                 </a>
                             </div>

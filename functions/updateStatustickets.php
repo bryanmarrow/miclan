@@ -21,7 +21,7 @@
     $paymenthMethod=isset($_POST['metodopago']) ? $_POST['metodopago'] : '';
 
     
-    
+    $tagevento=$_POST['tag_evento'];
     
     $user_id=$_SESSION['idUserSession'];
     $cupon=isset($_SESSION['cupon']) ? $_SESSION['cupon'] : '';
@@ -127,9 +127,9 @@
     // Datos Correo
     
     $mailCopia='bryan.martinez.romero@gmail.com';
-    $dataPase=infoEvento($tokenEvento);
+    $dataPase=infoEvento($tagevento);
         
-    $imagenEvento=$dataPase['imageMail'];
+    $imagenEvento=$dataPase['image_event'];
     $tagPase=$dataPase['tag'];
     $correoContactoEvento=$dataPase['email'];
     $nombreEvento=$dataPase['nombre'];
@@ -227,7 +227,7 @@
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      
         $mail->Port       = 587;                                    
         // $mail->SMTPDebug = 4;
-        $mail->setFrom(emailadmin, 'Euroson Latino');
+        $mail->setFrom(emailadmin, 'Miclan');
         $body = file_get_contents('../correos/invoice_v2.html');
         $body = str_replace('$email', $email_p, $body);
         $body = str_replace('$invoiceid', $invoice_id, $body);

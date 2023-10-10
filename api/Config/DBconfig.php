@@ -202,9 +202,9 @@ function getInfoEvento($tokenEvento){
     return $dataEvento;
 }
 
-function infoEvento($idevento){
+function infoEvento($tag_evento){
     global $basededatos;
-    $queryInfoEvento="SELECT * FROM tbl_eventos where token='$idevento'";
+    $queryInfoEvento="SELECT * FROM tbl_eventos where tag='$tag_evento'";
     $queryGetInfoEvento=$basededatos->connect()->prepare($queryInfoEvento);
     $queryGetInfoEvento->execute();
     
