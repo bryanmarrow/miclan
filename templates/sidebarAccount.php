@@ -1,4 +1,4 @@
-<div class="col-lg-2 mb-4 mb-lg-0">
+<div class="col-lg-4 mb-4 mb-lg-0">
     <div class="bg-light rounded-lg box-shadow-lg">
         <div class="px-4 py-4 mb-1 text-center">            
             <img class="d-block rounded-circle mx-auto my-2" width="110"  src="<?= $imgUser ?>" alt="<?= $colUser['fname'].' '.$colUser['lname'] ?>">            

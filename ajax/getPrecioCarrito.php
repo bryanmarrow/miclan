@@ -1,14 +1,11 @@
 <?php 
 
+    // var_dump($_POST);
+
     require('../api/Config/DBconfig.php');
     
     $items=$_POST['infoPases'];
 
-    // $tipocambio=20;
-    // $ivatax=0.16;
-    // $stripetax=0.038;
-    // $comisionpesos=3.00;
-    // $comisionplataforma=3.00;
 
     $cupon=isset($_SESSION['cupon']) ? $_SESSION['cupon'] : '';
 
@@ -49,25 +46,25 @@
     $subtotal=array_sum($montosubtotal);
     $descuentos=array_sum($montoDescuento);
     
- 
-    $comisionplataformausd=3.00;    
+    
+    // $comisionplataformausd=3.00;    
 
     
-    $comisionstripe=($subtotal-$descuentos)*0.07;
-    // echo $comisionstripe.'<br>';
-    $iva=$comisionstripe*0.16;    
-    // echo $iva.'<br>';
-    $comision=isset($_POST['paymenthMethod']) ? 0 : $comisionstripe+$iva+$comisionplataformausd;
-    // echo $comision.'<br>';
+    // $comisionstripe=($subtotal-$descuentos)*0.07;
+    // // echo $comisionstripe.'<br>';
+    // $iva=$comisionstripe*0.16;    
+    // // echo $iva.'<br>';
+    // $comision=isset($_POST['paymenthMethod']) ? 0 : $comisionstripe+$iva+$comisionplataformausd;
+    // // echo $comision.'<br>';
 
-    $comisionUSD=isset($_POST['paymenthMethod']) ? 0 : $comision;
-    // echo $comisionUSD;
+    // $comisionUSD=isset($_POST['paymenthMethod']) ? 0 : $comision;
+    // // echo $comisionUSD;
     
     
-    $total=$subtotal+$comisionUSD-$descuentos;
+    $total=$subtotal;
 
     $totalCarrito= [
-        'tax' => $comisionUSD,
+        'tax' => 0,
         'subTotalCarrito' => $subtotal,
         'descuento' => $descuentos,
         'total_amount' => $total,               
