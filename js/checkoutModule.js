@@ -24,7 +24,7 @@ var shoppingCart = (function () {
         this.invoiceid = invoiceid
     }
 
-    function ItemCompetidor(idform, nomPase, precioPase, divisaPase, prdqty, subTotalCarrito, tipoPase, competidores, invoiceid) {
+    function ItemCompetidor(idform, nomPase, precioPase, divisaPase, prdqty, subTotalCarrito, tipoPase, competidores, invoiceid, tipo_competencia) {
         this.sku = idform;
         this.nomPase = nomPase;
         this.precioPase = precioPase;
@@ -34,6 +34,7 @@ var shoppingCart = (function () {
         this.tipoPase = tipoPase
         this.competidores = competidores
         this.invoiceid = invoiceid
+        this.tipo_competencia = tipo_competencia
     }
 
     function saveCart() {
@@ -97,7 +98,7 @@ var shoppingCart = (function () {
 
     obj.addItemToCartCompetidor = async function (idform, tipoPase, objcompetidores) {
 
-        // console.log(objcompetidores)
+        // console.log(idform, tipoPase, objcompetidores);
 
         invoiceid = randomString(12, chars);
 
@@ -109,6 +110,7 @@ var shoppingCart = (function () {
             type: 'POST',
             data: objcompetidores
         }).done(data => {
+            console.log(data)
             competidores = data
         })
 
@@ -119,25 +121,30 @@ var shoppingCart = (function () {
                 idform: infoRegistro.idform
             }
         }).done(data => {
+            console.log(data)
+
             precioPase = data.precio;
             nomPase = data.descripcion_pase;
             divisaPase = data.divisaPase
+            tipo_competencia = data.tipo_competencia
         })
 
 
         prdqty = 1;
         subTotalCarrito = prdqty * precioPase;
 
-        if (idform == 'ELWSC2023INSCGRU') {
-            prdqty = idCompetidores.length
-            subTotalCarrito = precioPase * idCompetidores.length
-            competidores['nombreGrupo'] = infoRegistro.nombreGrupo
-            competidores['paisGrupo'] = infoRegistro.paisGrupo
-        }
+        // if (tipo_competencia == 'grupos') {
+        //     prdqty = idCompetidores.length
+        //     subTotalCarrito = precioPase * idCompetidores.length
+        //     competidores['nombreGrupo'] = infoRegistro.nombreGrupo
+        //     competidores['paisGrupo'] = infoRegistro.paisGrupo
+        // }
 
 
 
-        var item = new ItemCompetidor(idform, nomPase, precioPase, divisaPase, prdqty, subTotalCarrito.toFixed(2), tipoPase, competidores, invoiceid);
+        var item = new ItemCompetidor(idform, nomPase, precioPase, divisaPase, prdqty, subTotalCarrito.toFixed(2), tipoPase, competidores, invoiceid, tipo_competencia);
+
+        // console.log(item)
 
         cart.push(item);
         saveCart();
@@ -250,7 +257,7 @@ var shoppingCart = (function () {
 
             console.log(cart[item]);
 
-            // if (cart[item].tipoPase == 'acceso') {
+            if (cart[item].tipoPase == 'acceso') {
 
                 if (cart[item].quantity > 1) {
 
@@ -315,52 +322,52 @@ var shoppingCart = (function () {
                     `;
 
                 }
-            // } else if (cart[item].tipoPase == 'competencia') {
+            } else if (cart[item].tipoPase == 'competencia') {
 
 
-            //     for (var i = 0; i < cart[item].quantity; i++) {
+                for (var i = 0; i < cart[item].quantity; i++) {
 
-            //         competidores = cart[item].competidores.infocompetidores
-            //         categoria = cart[item].competidores.categoria
-            //         invoiceid = cart[item].invoiceid
+                    competidores = cart[item].competidores.infocompetidores
+                    categoria = cart[item].competidores.categoria
+                    invoiceid = cart[item].invoiceid
 
-            //         nomCompetidores = "";
+                    nomCompetidores = "";
 
-            //         for (let index = 0; index < competidores.length; index++) {
-            //             const element = competidores[index];
+                    for (let index = 0; index < competidores.length; index++) {
+                        const element = competidores[index];
 
-            //             nomCompetidores += `
-            //                 <h5 class="nav-heading font-size-sm mb-2">Nombre competidor ${index+1}:  ${ element.fname + ' '+ element.lname }</h5>
-            //                 <h5 class="text-muted font-size-sm mr-1 mb-3">ID Competidor: ${ element.idcompetidor }</h5>
+                        nomCompetidores += `
+                            <h5 class="nav-heading font-size-sm mb-2">Nombre competidor ${index+1}:  ${ element.fname + ' '+ element.lname }</h5>
+                            <h5 class="text-muted font-size-sm mr-1 mb-3">ID Competidor: ${ element.idcompetidor }</h5>
                             
-            //             `;
+                        `;
 
-            //         }
+                    }
 
-            //         nombreGrupo = cart[item].sku == 'grupos' ? `<h5 class="font-size-md">Nombre del Grupo: ${cart[item].competidores.nombreGrupo}</h5> ` : '';
-            //         numeroIntegrantes = cart[item].sku == 'grupos' ? `<h5 class="font-size-sm"># Integrantes: ${ cart[item].competidores.infocompetidores.length }</h5> ` : '';
+                    nombreGrupo = cart[item].sku == 'grupos' ? `<h5 class="font-size-md">Nombre del Grupo: ${cart[item].competidores.nombreGrupo}</h5> ` : '';
+                    numeroIntegrantes = cart[item].sku == 'grupos' ? `<h5 class="font-size-sm"># Integrantes: ${ cart[item].competidores.infocompetidores.length }</h5> ` : '';
 
-            //     }
+                }
 
-            //     itemCompetencia += `
-            //         <div class="d-sm-flex justify-content-between mb-3 border-bottom border-primary pb-1">
-            //             <div class="media media-ie-fix d-block d-sm-flex mr-sm-3">
-            //                 <div class="media-body font-size-sm pt-2 pl-sm-3 text-center text-sm-left">
-            //                     ${nombreGrupo}
-            //                     ${numeroIntegrantes}
-            //                     <h5 class="font-size-md">Categoría: ${categoria.categoria_es}</h5>
-            //                     <hr class="mb-2">
-            //                     ${nomCompetidores}
-            //                 </div>
-            //             </div>
+                itemCompetencia += `
+                    <div class="d-sm-flex justify-content-between mb-3 border-bottom border-primary pb-1">
+                        <div class="media media-ie-fix d-block d-sm-flex mr-sm-3">
+                            <div class="media-body font-size-sm pt-2 pl-sm-3 text-center text-sm-left">
+                                ${nombreGrupo}
+                                ${numeroIntegrantes}
+                                <h5 class="font-size-md">Categoría: ${categoria.categoria_es}</h5>
+                                <hr class="mb-2">
+                                ${nomCompetidores}
+                            </div>
+                        </div>
                         
-            //             <div class="font-size-sm text-center pt-2">
-            //                 <div class="text-muted">ID de registro:</div>
-            //                 <div class="font-weight-medium">${invoiceid}</div>
-            //             </div>
-            //         </div>
-            //     `;
-            // } 
+                        <div class="font-size-sm text-center pt-2">
+                            <div class="text-muted">ID de registro:</div>
+                            <div class="font-weight-medium">${invoiceid}</div>
+                        </div>
+                    </div>
+                `;
+            } 
             // else if (cart[item].tipoPase == 'promo') {
 
             //     rand = getRandomIntInclusive(1000, 9000);
@@ -467,8 +474,10 @@ var shoppingCart = (function () {
 })();
 
 
-$(document).on('click', '.btnaddPase',function (e) {
+$(document).on('click', '.btnaddPase', async function (e) {
     // console.log('entro')
+
+    
 
     var idform = $(this).data('codigopase');
     var nomPase = $(this).data('nompase');
@@ -480,21 +489,175 @@ $(document).on('click', '.btnaddPase',function (e) {
     var itemParent = $(this).closest('div.itemCart');
     var prdqty = $(itemParent).find('input.product-qty').val();
 
-    // preloaderActive();
+    var competidores;
 
-    console.log(tipoPase)   
+    
+    $(this).closest('#tickets_view_event').find('.addinfocompetidores').each(function(){
+        $(this).collapse('hide')
+    })
+    // console.log()   
+    
 
     if(tipoPase==='competencia'){
-        console.log(tipo_competencia)
+        
+        
+
+        tag_evento=urlParams.get('tag_evento'); 
+        
+        await $.ajax({
+            url: 'ajax/tablaCompetidores.php',            
+            type: 'POST',
+            dataType: "json",
+        }).done(data => {
+            competidores = data;
+        })
+
+        await $.ajax({
+            url: 'ajax/getCategorias.php',            
+            type: 'POST',
+            data: {  
+                tokenevento: tag_evento,
+                tabla:tipo_competencia
+            },
+            dataType: "json",
+        }).done(data => {
+            categorias_competencia=data;
+            
+        })
+        
+        
+
+        selectComboCompetidores=`
+                <div class="col-lg-12">
+                <div class="form-group">
+                <label for="select_competidores">Competidor:</label> <span class="text-muted">*</span>
+                <select class="custom-select select_competidores" name="select_competidores" id="select_competidores" required>
+                    <option value="">Seleccione el competidor</option>`;
+        competidores.forEach(element => {
+            console.log(element)
+            selectComboCompetidores+=`<option value="${element.id}">${element.fname} ${element.lname}</option>`
+        })
+        selectComboCompetidores+=`</select>                    
+        </div>
+        </div>
+        `;
+
+        selectallCombosCompetidores='';
+        for (let index = 0; index < prdqty; index++) {            
+            selectallCombosCompetidores+=selectComboCompetidores            
+        }
+        
+        // if(tipo_competencia=='solistas'){
+           
+            
+            
+
+            
+
+            selectComboCategorias=`<div class="col-lg-12">
+                <div class="form-group">
+                <label for="select_competidores">Categoría:</label> <span class="text-muted">*</span>
+                <select class="custom-select select_categorias" name="categoria_p" required>
+                    <option value="">Seleccionar categoría</option>`;
+            categorias_competencia.forEach(element => {
+                selectComboCategorias+=`<option value="${element.idCategoria}">${element.categoria_es}</option>`
+            })
+            selectComboCategorias+=`</select>                    
+                </div>
+                </div>
+            `;
+            
+            buttonAgregarCategoria=`<div class="col-lg-12"><button class="btn-primary btn btnAgregarPaseCompetencia" 
+                data-codigopase="${ idform }" 
+                data-nompase="${ nomPase }"
+                data-precioPase="${ precioPase }"
+                data-divisapase="${ divisaPase }"
+                data-tipopase="${ tipoPase }"
+                data-tipopase_competencia="${ tipo_competencia }" 
+                type="submit">Agregar al carrito</button></div>`;
+
+            
+
+            divCompetidores=`${selectallCombosCompetidores} ${selectComboCategorias} ${buttonAgregarCategoria}`;
+            $(this).closest('.divPase').find('.addinfocompetidores').find('.row').html(divCompetidores);            
+            $(this).closest('.divPase').find('.addinfocompetidores').collapse('show');
+                        
+            
+
+        // }
+
+    }else if(tipoPase==='acceso'){
+        preloaderActive();
+        shoppingCart.addItemToCart(idform, nomPase, precioPase, divisaPase, prdqty, tipoPase);
+
+        setTimeout(function () {
+            displayCart();
+            preloaderRemove();
+        }, 500)
     }
 
-    // shoppingCart.addItemToCart(idform, nomPase, precioPase, divisaPase, prdqty, tipoPase);
+    
 
 
-    // setTimeout(function () {
-    //     displayCart();
-    //     preloaderRemove();
-    // }, 500)
+    
+
+
+})
+
+$(document).on('click', '.btnAgregarPaseCompetencia', function(){
+
+    preloaderActive();
+
+    categoriaPase = $(this).closest('.addinfocompetidores').find('.select_categorias option:selected').val();
+    tipoPase = $(this).closest('.divPase').find('.btnaddPase').data('tipopase');
+    idform=$(this).closest('.divPase').find('.btnaddPase').data('codigopase');
+    tokenevento=tag_evento=urlParams.get('tag_evento'); 
+    
+    competidores = [];
+    $(this).closest('.addinfocompetidores').find('.select_competidores option:selected').each(function(){
+        
+        
+        const element = $(this).val();
+        datosCompetidor = {};
+        datosCompetidor.idCompetidor = element
+        competidores.push(datosCompetidor)
+    })
+
+    infoRegistro = {
+        categoriaPase,
+        tipoPase,
+        idform,
+        tokenevento
+    };
+
+
+    registroCompetencia = {
+        competidores,
+        infoRegistro
+    };
+    console.log(registroCompetencia)
+
+
+    shoppingCart.addItemToCartCompetidor(idform, tipoPase, registroCompetencia);
+
+    $(this).closest('.addinfocompetidores').collapse('hide');
+    
+    
+
+    setTimeout(function () {
+        displayCart();
+        preloaderRemove();
+        
+    }, 500)
+
+
+    
+    // for (let index = 0; index < inputsCompetidores.length; index++) {
+    //     const element = inputsCompetidores[index].value;
+    //     datosCompetidor = {};
+    //     datosCompetidor.idCompetidor = element
+    //     competidores.push(datosCompetidor)
+    // }
 
 
 })
@@ -650,7 +813,7 @@ async function displayCart() {
         respuesta,
         data
     }) => {
-        console.log(data)
+        // console.log(data)
         
         switch (respuesta) {
             case 'success':
@@ -702,7 +865,7 @@ async function displayCart() {
                 </span> `
         }
 
-        // console.log(cartArray)
+        console.log(cartArray)
 
         carritoPrecio = [];
         for (var i in cartArray) {
@@ -720,62 +883,62 @@ async function displayCart() {
                 carritoPrecio.push(data);
             })
 
-            // switch (cartArray[i].tipoPase) {
-            //     case 'competencia':
-            //         // infocompetidores = cartArray[i].competidores.infocompetidores;
-            //         // infocategoria = cartArray[i].competidores.categoria;
-            //         nomCompetidores = '';
-            //         for (let index = 0; index < infocompetidores.length; index++) {
-            //             const element = infocompetidores[index];
-            //             switch (cartArray[i].sku) {
-            //                 case 'ELWSC2023INSCSOL':
-            //                     nomCompetidores = `${ element.fname + ' ' + element.lname } - ${ element.idcompetidor }`
-            //                     break;
-            //                 case 'ELWSC2023INSCPAR':
-            //                     if (index == 0) {
-            //                         nomCompetidores += `${ element.fname } ${ element.lname } y `
-            //                     } else {
-            //                         nomCompetidores += `${ element.fname } ${ element.lname }`
-            //                     }
-            //                     break;
-            //                 case 'ELWSC2023INSCGRU':
-            //                     // nomCompetidores=`<p class="font-size-xs mb-1">${ element.fname + ' ' + element.lname } - ${ element.idcompetidor } </p>`
-            //                     nomCompetidores = '';
-            //                     break;
-            //             }
-            //         }
+            switch (cartArray[i].tipoPase) {
+                case 'competencia':
+                    infocompetidores = cartArray[i].competidores.infocompetidores;
+                    infocategoria = cartArray[i].competidores.categoria;
+                    nomCompetidores = '';
+                    for (let index = 0; index < infocompetidores.length; index++) {
+                        const element = infocompetidores[index];
+                        switch (cartArray[i].tipo_competencia) {
+                            case 'solistas':
+                                nomCompetidores = `${ element.fname + ' ' + element.lname } - ${ element.idcompetidor }`
+                                break;
+                            case 'parejas':
+                                if (index == 0) {
+                                    nomCompetidores += `${ element.fname } ${ element.lname } y `
+                                } else {
+                                    nomCompetidores += `${ element.fname } ${ element.lname }`
+                                }
+                                break;
+                            case 'grupos':
+                                // nomCompetidores=`<p class="font-size-xs mb-1">${ element.fname + ' ' + element.lname } - ${ element.idcompetidor } </p>`
+                                nomCompetidores = '';
+                                break;
+                        }
+                    }
 
-            //         numeroIntegrantes = cartArray[i].sku == 'ELWSC2023INSCGRU' ? cartArray[i].competidores.infocompetidores.length : '';
-            //         nombreGrupo = cartArray[i].sku == 'ELWSC2023INSCGRU' ? cartArray[i].competidores.nombreGrupo + ` - # Integrantes: ${numeroIntegrantes}` : '';
+                    numeroIntegrantes = cartArray[i].sku == 'ELWSC2023INSCGRU' ? cartArray[i].competidores.infocompetidores.length : '';
+                    nombreGrupo = cartArray[i].sku == 'ELWSC2023INSCGRU' ? cartArray[i].competidores.nombreGrupo + ` - # Integrantes: ${numeroIntegrantes}` : '';
 
 
-            //         output += `<div class="media align-items-center mb-3">
-            //                 <div class="media-body pl-2 ml-1">
-            //                     <div class="d-flex align-items-center justify-content-between">
-            //                         <div class="mr-3">
-            //                             <h4 class="nav-heading font-size-md mb-1">${ cartArray[i].nomPase }</h4>
-            //                             <p class="font-size-xs mb-1">${nomCompetidores} </p>
-            //                             <p class="font-size-xs mb-1">${nombreGrupo} </p>
-            //                             <p class="font-size-xs mb-1">${infocategoria.categoria_es} </p>
-            //                             <div class="d-flex align-items-center font-size-sm"><span class="mr-2">${ precioPase }</span><span class="mr-2">x</span>
+                    output += `<div class="media align-items-center mb-3">
+                            <div class="media-body pl-2 ml-1">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="mr-3">
+                                        <h4 class="nav-heading font-size-md mb-1">${ cartArray[i].nomPase }</h4>
+                                        <p class="font-size-xs mb-1">${nomCompetidores} </p>
+                                        <p class="font-size-xs mb-1">${nombreGrupo} </p>
+                                        <p class="font-size-xs mb-1">${infocategoria.categoria_es} </p>
+                                        <div class="d-flex align-items-center font-size-sm"><span class="mr-2">${ precioPase }</span><span class="mr-2">x</span>
                                             
-            //                             <span class="px-2" style="max-width: 3.5rem;">${ cartArray[i].quantity }</span>
+                                        <span class="px-2" style="max-width: 3.5rem;">${ cartArray[i].quantity }</span>
 
-            //                             </div>
-            //                             <span class="font-size-xs mt-3">Subtotal: ${ numberFormat1.format(subTotalPase, options1) } </span>
-            //                         </div>
-            //                         <div class="pl-3 border-left">
+                                        </div>
+                                        <span class="font-size-xs mt-3">Subtotal: ${ numberFormat1.format(subTotalPase, options1) } </span>
+                                    </div>
+                                    <div class="pl-3 border-left">
                                         
-            //                             <a class="d-block text-danger text-decoration-none font-size-xl delete-item" href="#" data-toggle="tooltip" title="Remove" data-codpase="${ cartArray[i].invoiceid }" data-tipopase="${ cartArray[i].tipoPase }">
-            //                                 <i class="fe-x-circle"></i>
-            //                             </a>
-            //                         </div>
-            //                     </div>
-            //                 </div>
-            //             </div>`;
+                                        <a class="d-block text-danger text-decoration-none font-size-xl delete-item" href="#" data-toggle="tooltip" title="Remove" data-codpase="${ cartArray[i].invoiceid }" data-tipopase="${ cartArray[i].tipoPase }">
+                                            <i class="fe-x-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>`;
 
-            //         break;
-            //     case 'acceso':
+                    break;
+                case 'acceso':
                     output += `
                         <div class="media align-items-center mb-3">
                             <div class="media-body pl-2 ml-1">
@@ -797,7 +960,7 @@ async function displayCart() {
                                 </div>
                             </div>
                         </div>`;
-            //         break;
+                    break;
             //     default:
             //         output += `
             //             <div class="media align-items-center mb-3">
@@ -821,7 +984,7 @@ async function displayCart() {
             //                 </div>
             //             </div>`;
             //         break;
-            // }
+            }
         }
 
         const subTotalCarrito = carritoPrecio.map(item => Number(item['precio'])).reduce((prev, curr) => prev + curr, 0);
@@ -969,16 +1132,16 @@ if (formCompetencias) {
 
 
 
-        // console.log(registroCompetencia)
+        console.log(registroCompetencia)
 
-        preloaderActive();
-        shoppingCart.addItemToCartCompetidor(idform, tipoPase, registroCompetencia);
+        // preloaderActive();
+        // shoppingCart.addItemToCartCompetidor(idform, tipoPase, registroCompetencia);
 
 
-        setTimeout(function () {
-            displayCart();
-            preloaderRemove();
-        }, 500)
+        // setTimeout(function () {
+        //     displayCart();
+        //     preloaderRemove();
+        // }, 500)
 
     })
 
@@ -1055,45 +1218,75 @@ $('#addtickets_event').click(async function(){
     
     $('#btnmodal_checkout').attr('href', 'checkout?tag_evento='+tag_evento);
 
+    await $.ajax({
+        url: 'ajax/getDataEvento',
+        type: 'POST',
+        data: { tokenevento: tag_evento }
+    }).done(({
+        respuesta,
+        data
+    }) => {
+        imagen_evento='data:image/png;base64,'+data.imageMail;
+        nombre_evento=data.nombre;
+        lugar_evento=data.lugar_evento;
+        sede_evento=data.sede;
+        fechas_evento=data.fecha_completa;
+
+        $('.img_evento_modal').attr('src',imagen_evento);
+        $('.nombre_evento_modal').html(nombre_evento);
+        $('.sede_evento_modal').html(sede_evento);
+        $('.lugar_evento_modal').html(lugar_evento);
+        $('.fechas_evento_modal').html(fechas_evento);
+
+    })
+
+
+
     $('#tickets_view_event').empty();
     data.forEach(element => {
         console.log(element)
         
+        texto_addcarrito=element.tipo_pase=='acceso'? 'Agregar al carrito' : 'Seleccionar';
+        
         divPase=`<div class="col-lg-12 pb-4">
-        <div class="bg-light box-shadow-lg rounded-lg ">
-          <div class="pt-3 px-3 itemCart">
-            <div class="d-md-flex align-items-start border-bottom py-2 py-sm-2">
-              <div class="ml-4 ml-sm-0 py-2 w-100" style="max-width: 25rem;">
-                <h5 class="mb-2">${ element.descripcion_pase }</h3>
-                <div class="font-size-xs" style="max-width: 10rem;">${ element.tag }</div>
-              </div>
-              <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 25rem;">
-                <span class="h5 font-weight-normal text-muted mb-1 mr-2">$</span>
-                <span class="h5 font-weight-normal text-primary mb-1 mr-2" data-current-price="0" data-new-price="0">${ element.precio }</span>
-                <span class="h5 font-weight-normal text-muted mb-1 mr-2">${ element.divisa }</span>
-              </div>
-            
-              <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 15rem;">                              
-                  <input class="form-control text-center product-qty mb-2" type="number" value="${ element.minPases }" min="${ element.minPases }" max="${ element.maxPases }" >
-              </div>
-              <div class="d-flex w-100 align-items-end py-1 py-sm-2 px-3" style="max-width: 13rem;">
+        <div class="bg-light box-shadow-lg rounded-lg divPase">
+            <div class="pt-3 px-3 itemCart">
+                <div class="d-md-flex align-items-start border-bottom py-2 py-sm-2">
+                <div class="ml-4 ml-sm-0 py-2 w-100" style="max-width: 25rem;">
+                    <h5 class="mb-2">${ element.descripcion_pase }</h3>
+                    <div class="font-size-xs" style="max-width: 10rem;">${ element.tag }</div>
+                </div>
+                <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 25rem;">
+                    <span class="h5 font-weight-normal text-muted mb-1 mr-2">$</span>
+                    <span class="h5 font-weight-normal text-primary mb-1 mr-2" data-current-price="0" data-new-price="0">${ element.precio }</span>
+                    <span class="h5 font-weight-normal text-muted mb-1 mr-2">${ element.divisa }</span>
+                </div>
                 
-                <button class="btn btn-primary btn-sm btn-block btnaddPase" type="button" 
-                    data-codigopase="${ element.codigo_pase }" 
-                    data-nompase="${ element.descripcion_pase }"
-                    data-precioPase="${ element.precio }"
-                    data-divisapase="${ element.divisa }"
-                    data-tipopase="${ element.tipo_pase }"
-                    data-tipopase_competencia="${ element.tipo_competencia }"
+                <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 15rem;">                              
+                    <input class="form-control text-center product-qty mb-2" type="number" value="${ element.minPases }" min="${ element.minPases }" max="${ element.maxPases }" >
+                </div>
+                <div class="d-flex w-100 align-items-end py-1 py-sm-2 px-3" style="max-width: 13rem;">
                     
-                >
-                    Agregar al carrito
-                </button>
-              </div>
-              
+                    <button class="btn btn-primary btn-sm btn-block btnaddPase" type="button" 
+                        data-codigopase="${ element.codigo_pase }" 
+                        data-nompase="${ element.descripcion_pase }"
+                        data-precioPase="${ element.precio }"
+                        data-divisapase="${ element.divisa }"
+                        data-tipopase="${ element.tipo_pase }"
+                        data-tipopase_competencia="${ element.tipo_competencia }"                        
+                    >
+                        ${texto_addcarrito}
+                    </button>
+                </div>
+                
+                </div>
             </div>
-          </div>
+            <div class="p-3 collapse addinfocompetidores" >
+                <div class="row">
+                </div>
+            </div>
         </div>
+       
       </div>`;
       $('#tickets_view_event').append(divPase);
         

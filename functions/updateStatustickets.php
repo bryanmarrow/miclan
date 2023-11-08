@@ -129,7 +129,7 @@
     $mailCopia='bryan.martinez.romero@gmail.com';
     $dataPase=infoEvento($tagevento);
         
-    $imagenEvento=$dataPase['image_event'];
+    $imagenEvento=$dataPase['imagen_evento'];
     $tagPase=$dataPase['tag'];
     $correoContactoEvento=$dataPase['email'];
     $nombreEvento=$dataPase['nombre'];

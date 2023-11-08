@@ -74,7 +74,7 @@
     <script src="<?= $rootPath ?>assets\js\jquery-1.9.1.min.js"></script>
     <script src="<?= $rootPath ?>assets\js\jquery.cookie-1.3.1.js"></script>
     <script src="<?= $rootPath ?>assets\js\modernizr-2.6.2.min.js"></script>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js" async></script>
     <script src="<?= $rootPath ?>assets\vendor\bootstrap\dist\js\bootstrap.bundle.min.js"></script>
     <script src="<?= $rootPath ?>assets\vendor\bs-custom-file-input\dist\bs-custom-file-input.min.js"></script>
     <script src="<?= $rootPath ?>assets\vendor\simplebar\dist\simplebar.min.js"></script>
@@ -88,12 +88,12 @@
     <script src="<?= $rootPath ?>assets\vendor\jarallax\dist\jarallax-element.min.js"></script>
     <script src="<?= $rootPath ?>assets\vendor\lg-fullscreen.js\dist\lg-fullscreen.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
+    <link rel="preload"  href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
     
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" async></script>
     
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js" async></script>
 
     <!-- <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD" data-sdk-integration-source="button-factory"></script> -->
     <script src="https://js.stripe.com/v3/"></script>
@@ -116,7 +116,7 @@
 
     
 
-    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/picturefill/2.3.1/picturefill.min.js" async></script>
     <script src="<?= $rootPath ?>assets/js/dist/js/lightgallery-all.min.js"></script>
     <script src="<?= $rootPath ?>assets/js/lib/jquery.mousewheel.min.js"></script>
     <!-- <script src='//fw-cdn.com/7104283/3248583.js' chat='true'></script> -->

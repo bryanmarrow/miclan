@@ -100,8 +100,8 @@
                     $infoCompetidores=$item['competidores'];
                     $infoCategoria=$infoCompetidores['categoria'];
                     
-                    switch ($item['sku']) {
-                        case 'ELWSC2023INSCSOL':
+                    switch ($item['tipo_competencia']) {
+                        case 'solistas':
                             // var_dump($item);
                             $competidorSolista=$infoCompetidores['infocompetidores'][0];
                             $categoriaSolista=$infoCompetidores['categoria'];
@@ -112,11 +112,12 @@
                                 'registro_token' => $item['invoiceid'],
                                 'statusPago' => 0,
                                 'userId' => $user_id,
-                                'invoiceid' => $invoiceid
+                                'invoiceid' => $invoiceid,
+                                'id_evento' => $idEvento
                             ];    
                             try{
-                                $query="INSERT INTO `tbl_solistas`(`idCompetidor`, `idCategoria`, `fecharegistro`, `registro_token`, `statusPago`, `userId`, `invoiceid`) 
-                                VALUES (:idCompetidor, :idCategoria, :fechaRegistro, :registro_token, :statusPago, :userId, :invoiceid)";
+                                $query="INSERT INTO `tbl_solistas`(`idCompetidor`, `idCategoria`, `fecharegistro`, `registro_token`, `statusPago`, `userId`, `invoiceid`, `id_evento`) 
+                                VALUES (:idCompetidor, :idCategoria, :fechaRegistro, :registro_token, :statusPago, :userId, :invoiceid, :id_evento)";
 
                                 $basededatos->connect()->prepare($query)->execute($data);
         
@@ -133,7 +134,7 @@
                             // var_dump($respuesta);
 
                             break;
-                        case 'ELWSC2023INSCPAR':
+                        case 'parejas':
                             $competidor_p1=$infoCompetidores['infocompetidores'][0];
                             $competidor_p2=$infoCompetidores['infocompetidores'][1];
                             
@@ -145,12 +146,13 @@
                                 'registro_token' => $item['invoiceid'],
                                 'alias' => '',                            
                                 'userId' => $user_id,
-                                'invoiceid' => $invoiceid
+                                'invoiceid' => $invoiceid,
+                                'id_evento' => $idEvento
                             ];    
 
                             try{
-                                $query="INSERT INTO `tbl_parejas`(`idCompetidor_p1`, `idCompetidor_p2`, `idCategoria`, `fecharegistro`, `registro_token`, `alias`, `userId`, `invoiceid`) 
-                                VALUES (:idCompetidor_p1, :idCompetidor_p2, :idCategoria, :fechaRegistro, :registro_token, :alias, :userId, :invoiceid)";
+                                $query="INSERT INTO `tbl_parejas`(`idCompetidor_p1`, `idCompetidor_p2`, `idCategoria`, `fecharegistro`, `registro_token`, `alias`, `userId`, `invoiceid`, `id_evento`) 
+                                VALUES (:idCompetidor_p1, :idCompetidor_p2, :idCategoria, :fechaRegistro, :registro_token, :alias, :userId, :invoiceid, :id_evento)";
 
                                 $basededatos->connect()->prepare($query)->execute($data);
         

@@ -49,7 +49,8 @@ async function handleSubmit(e) {
 
   var subTotalCarrito = shoppingCart.totalCart();
 
-
+  tag_evento=urlParams.get('tag_evento');   
+  // console.log(tag_evento)
 
   if (subTotalCarrito == 0) {
 
@@ -165,7 +166,8 @@ async function handleSubmit(e) {
                   invoice_id: invoiceID,
                   pases: cartArray,
                   infoOrdenPases,
-                  metodoPago: data.metodoPago
+                  metodopago: data.metodoPago,
+                  tag_evento
                 }
               }).done(data => {
                 switch (data.respuesta) {

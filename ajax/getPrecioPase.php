@@ -33,7 +33,10 @@
         'codigo_pase' => $fetchPase['codigo_pase'],
         'precio' => $precioPase,
         'descripcion_pase' => $fetchPase['descripcion_pase'],
-        'divisaPase' => $fetchPase['divisa']
+        'divisaPase' => $fetchPase['divisa'],
+        'minPase' => $fetchPase['minPases'],
+        'maxPase' => $fetchPase['maxPases'],
+        'tipo_competencia' => $fetchPase['tipo_competencia']
     ];
     
     // var_dump($datosPase);

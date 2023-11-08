@@ -6,7 +6,7 @@
     $usercliente_id=$_SESSION['idUserSession'];
     
 
-    $consulta = "SELECT b.fname, b.lname, b.fechanac, b.genero, b.fecharegistro, b.idcompetidor, c.pais
+    $consulta = "SELECT b.id, b.fname, b.lname, b.fechanac, b.genero, b.fecharegistro, b.idcompetidor, c.pais
     FROM tbl_competidores_users_id a
     INNER JOIN tbl_competidores b ON a.idcompetidor = b.idcompetidor
     INNER JOIN tbl_paises c ON b.country = c.id

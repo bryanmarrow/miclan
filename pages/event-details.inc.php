@@ -8,10 +8,9 @@
 ?>
 <!-- Modal markup -->
 <div class="modal fade show-carrito" tabindex="-1" role="dialog" id="modal_tickets_event" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-fullscreen" role="document">
+  <div class="modal-dialog-scrollable modal-fullscreen" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Modal title</h4>
+      <div class="modal-header">        
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -24,6 +23,23 @@
                 </div>
                 <div class="col-lg-4 ">
                     <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pb-2">
+                                <a class="card border-0 box-shadow card-hover mx-1" href="#">                    
+                                    <div class="card-img-top card-img-gradient">
+                                        <img class="img_evento_modal" src="data:image/png;base64, "  style="height:15rem; object-fit:cover;">                                        
+                                    </div>
+                                    <div class="card-body">                                                
+                                        <ul class="list-unstyled font-size-sm text-muted">
+                                            <li><h3 class="h5 nombre_evento_modal"></h3></li>
+                                            <li><i class="fe-calendar mr-1"></i><span class="text-danger font-weight-medium mr-2 fechas_evento_modal"></span></li>
+                                            <li><i class="fe-map mr-1"></i><span class="text-heading font-weight-medium mr-2 sede_evento_modal"></li>                                                        
+                                            <li><i class="fe-map-pin mr-1"></i><span class="text-heading font-weight-medium mr-2 lugar_evento_modal"></li>                                                        
+                                        </ul>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                         <div class="col-lg-12 carritoItems">
 
                         </div>
@@ -133,7 +149,7 @@
         <div class="container">                   
           <div class="row align-items-center">             
             <div class="col-lg-6">
-                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4516.265353439318!2d-98.19419427131554!3d19.042684483196037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc1580b2b0cd9%3A0x6e8cbe35c02540a0!2sCentro%20de%20Convenciones!5e0!3m2!1ses!2smx!4v1689978614248!5m2!1ses!2smx" width="800" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>            
+                 <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4516.265353439318!2d-98.19419427131554!3d19.042684483196037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85cfc1580b2b0cd9%3A0x6e8cbe35c02540a0!2sCentro%20de%20Convenciones!5e0!3m2!1ses!2smx!4v1689978614248!5m2!1ses!2smx" width="800" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>             -->
             </div>
             <div class="col-lg-6">
               <h2 class="h3 mb-4">Donde será?</h2>
