@@ -528,7 +528,7 @@ $(document).on('click', '.btnaddPase', async function (e) {
         
 
         selectComboCompetidores=`
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                 <div class="form-group">
                 <label for="select_competidores">Competidor:</label> <span class="text-muted">*</span>
                 <select class="custom-select select_competidores" name="select_competidores" id="select_competidores" required>
@@ -554,7 +554,7 @@ $(document).on('click', '.btnaddPase', async function (e) {
 
             
 
-            selectComboCategorias=`<div class="col-lg-12">
+            selectComboCategorias=`<div class="col-lg-6">
                 <div class="form-group">
                 <label for="select_competidores">Categoría:</label> <span class="text-muted">*</span>
                 <select class="custom-select select_categorias" name="categoria_p" required>
@@ -1193,6 +1193,10 @@ Fancybox.bind("[data-fancybox]", {
 
 $('#addtickets_event').click(async function(){
     
+    
+    // console.log('entro')
+
+
     let carritoStorage=JSON.parse(localStorage.getItem("carritoelwsc"));
     // console.log(carritoStorage);
 
@@ -1243,51 +1247,52 @@ $('#addtickets_event').click(async function(){
 
 
     $('#tickets_view_event').empty();
-    data.forEach(element => {
-        console.log(element)
-        
-        texto_addcarrito=element.tipo_pase=='acceso'? 'Agregar al carrito' : 'Seleccionar';
-        
-        divPase=`<div class="col-lg-12 pb-4">
-        <div class="bg-light box-shadow-lg rounded-lg divPase">
-            <div class="pt-3 px-3 itemCart">
-                <div class="d-md-flex align-items-start border-bottom py-2 py-sm-2">
-                <div class="ml-4 ml-sm-0 py-2 w-100" style="max-width: 25rem;">
-                    <h5 class="mb-2">${ element.descripcion_pase }</h3>
-                    <div class="font-size-xs" style="max-width: 10rem;">${ element.tag }</div>
-                </div>
-                <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 25rem;">
-                    <span class="h5 font-weight-normal text-muted mb-1 mr-2">$</span>
-                    <span class="h5 font-weight-normal text-primary mb-1 mr-2" data-current-price="0" data-new-price="0">${ element.precio }</span>
-                    <span class="h5 font-weight-normal text-muted mb-1 mr-2">${ element.divisa }</span>
-                </div>
-                
-                <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 15rem;">                              
-                    <input class="form-control text-center product-qty mb-2" type="number" value="${ element.minPases }" min="${ element.minPases }" max="${ element.maxPases }" >
-                </div>
-                <div class="d-flex w-100 align-items-end py-1 py-sm-2 px-3" style="max-width: 13rem;">
+        data.forEach(element => {
+            console.log(element)
+            
+            texto_addcarrito=element.tipo_pase=='acceso'? 'Agregar al carrito' : 'Seleccionar';
+            clase_hide_cant=element.tipo_pase=='competencia' && element.tipo_competencia!='grupos' ? 'd-none' : 'd-flex';
+            divPase=`<div class="col-lg-12 pb-4">
+            <div class="bg-light box-shadow-lg rounded-lg divPase">
+                <div class="pt-3 px-3 itemCart">
+                    <div class="d-md-flex align-items-start border-bottom py-2 py-sm-2">
+                    <div class="ml-4 ml-sm-0 py-2 w-100" style="max-width: 25rem;">
+                        <h5 class="mb-2">${ element.descripcion_pase }</h3>
+                        <div class="font-size-xs" style="max-width: 10rem;">${ element.tag }</div>
+                    </div>
+                    <div class="d-flex w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 25rem;">
+                        <span class="h5 font-weight-normal text-muted mb-1 mr-2">$</span>
+                        <span class="h5 font-weight-normal text-primary mb-1 mr-2" data-current-price="0" data-new-price="0">${ element.precio }</span>
+                        <span class="h5 font-weight-normal text-muted mb-1 mr-2">${ element.divisa }</span>
+                    </div>
                     
-                    <button class="btn btn-primary btn-sm btn-block btnaddPase" type="button" 
-                        data-codigopase="${ element.codigo_pase }" 
-                        data-nompase="${ element.descripcion_pase }"
-                        data-precioPase="${ element.precio }"
-                        data-divisapase="${ element.divisa }"
-                        data-tipopase="${ element.tipo_pase }"
-                        data-tipopase_competencia="${ element.tipo_competencia }"                        
-                    >
-                        ${texto_addcarrito}
-                    </button>
+                    <div class="${clase_hide_cant} w-100 align-items-end py-3 py-sm-2 px-4" style="max-width: 15rem;">                              
+                        <input class="form-control text-center product-qty mb-2" type="number" value="${ element.minPases }" min="${ element.minPases }" max="${ element.maxPases }" >
+                    </div>
+
+                    <div class="d-flex w-100 align-items-end py-1 py-sm-2 px-3" style="max-width: 13rem;">
+                        
+                        <button class="btn btn-primary btn-sm btn-block btnaddPase" type="button" 
+                            data-codigopase="${ element.codigo_pase }" 
+                            data-nompase="${ element.descripcion_pase }"
+                            data-precioPase="${ element.precio }"
+                            data-divisapase="${ element.divisa }"
+                            data-tipopase="${ element.tipo_pase }"
+                            data-tipopase_competencia="${ element.tipo_competencia }"                        
+                        >
+                            ${texto_addcarrito}
+                        </button>
+                    </div>
+                    
+                    </div>
                 </div>
-                
+                <div class="p-3 collapse addinfocompetidores" >
+                    <div class="row">
+                    </div>
                 </div>
             </div>
-            <div class="p-3 collapse addinfocompetidores" >
-                <div class="row">
-                </div>
-            </div>
-        </div>
-       
-      </div>`;
+        
+        </div>`;
       $('#tickets_view_event').append(divPase);
         
     });    
@@ -1296,6 +1301,19 @@ $('#addtickets_event').click(async function(){
     $('#modal_tickets_event').modal('show');
 })
 
+
+async function get_session_user(){
+
+    await $.ajax({
+        url: 'controllers/session_controller.php',
+        type: 'POST',
+        data: {  }
+    }).done(data_session => {
+        console.log(data_session)
+    })
+
+
+}
 
 async function getDataController(name_controller, name_stored_procedure, params_controller){
 

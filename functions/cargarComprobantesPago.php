@@ -27,6 +27,8 @@
                     $nombrefile='comprobantedepago_' .$tokenFile.date("m_d_y_H_i_s").'.'.$extension;
                     $sourcePath = (isset($_FILES['imgvalues']['tmp_name'][$i])) ? $_FILES['imgvalues']['tmp_name'][$i] : '';
                     $targetPath = $nombrefile;
+
+                    $data_comprobante_pago=file_get_contents($sourcePath);
                 
                     $targetFilePath = $baseFolder.$nombrefile;
                     $tokenPago=$_POST['tokenPago'];
@@ -34,11 +36,13 @@
                     $numReferencia=$infoComprobantes[$i]->num_referencia_comprobante;
                     $montoComprobante=$infoComprobantes[$i]->monto_comprobante;
                     
-                    if(move_uploaded_file($_FILES['imgvalues']['tmp_name'][$i], $targetFilePath)){
+                    // if(move_uploaded_file($_FILES['imgvalues']['tmp_name'][$i], $targetFilePath)){
                 
                         try {
-                            $queryInserComprobante="INSERT INTO `tbl_comprobantes_pago`(`nombreFile`, `tokenPago`, `tokenFile`,`numreferencia_comprobante`,`monto_comprobante`) 
-                            VALUES ('".$nombrefile."', '".$tokenPago."','".$tokenFile."','".$numReferencia."','".$montoComprobante."')";
+                            $queryInserComprobante="INSERT INTO `tbl_comprobantes_pago`(`nombreFile`, 
+                            `tokenPago`, `tokenFile`,`numreferencia_comprobante`,`monto_comprobante`, `data_file`) 
+                            VALUES ('".$nombrefile."', '".$tokenPago."',
+                            '".$tokenFile."','".$numReferencia."','".$montoComprobante."', '".base64_encode($data_comprobante_pago)."')";
                             $insertarComprobante=$basededatos->connect()->prepare($queryInserComprobante);            
                             $insertarComprobante->execute();            
                 
@@ -46,7 +50,7 @@
                                 'respuesta' => 'success',
                                 'nombreFile' => $nombrefile,
                                 'tokenPago' => $tokenPago,
-                                'tokenFile' => $tokenFile,
+                                'tokenFile' => $tokenFile
                                 // 'idRol' => $_POST['idRol']
                             );
                         } catch (PDOException $e) {
@@ -60,7 +64,7 @@
                         }
                 
                         array_push($resComprobantes, $respuesta);
-                    }
+                    // }
                 }
 
                 header('Content-Type: application/json');
